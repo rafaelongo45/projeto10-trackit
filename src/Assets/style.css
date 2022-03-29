@@ -2,10 +2,22 @@
     box-sizing: border-box;
 }
 
+html{
+    height: 100%;
+}
+
 body{
     display: flex;
     flex-wrap: wrap;
     width:85vw;
     margin: auto;
     justify-content: center;
+    font-family: 'Lexend Deca', sans-serif;
+    min-height: 100%;
+}
+
+.root{
+    margin-top: 27%;
+    margin-bottom: 24%;
+    min-height: 100%;
 }

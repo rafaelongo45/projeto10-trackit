@@ -1,23 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Logo from "../../Assets/img/logo.svg"
 
 function LoginPage() {
+    const navigate = useNavigate();
+
+    
     return (
         <>
             <PageLogo>
                 <img src={Logo} alt="Page Logo" />
             </PageLogo>
 
-            <Form>
+            <Form onSubmit={navigate("/habitos")}>
                 <input type="email" placeholder="email" required></input>
                 <input type="password" placeholder="senha" required></input>
+                <input type="text" placeholder="nome" required></input>
+                <input type="url" placeholder="foto" required></input>
                 <button type="submit">Entrar</button>
             </Form>
 
             <CreateAccountLink >
-                <Link to="/cadastro">Não tem uma conta? Cadastre-se</Link>
+                <Link to="/">Já tem uma conta? Faça login!</Link>
             </CreateAccountLink>
 
         </>
@@ -45,7 +50,6 @@ const Form = styled.form`
     display:flex;
     flex-wrap:wrap;
     margin-top: 15%;
-    font-family: 'Lexend Deca', sans-serif;
 
     input{
         padding-left: 10px;
@@ -79,7 +83,6 @@ const Form = styled.form`
 const CreateAccountLink = styled.section`
     text-align: center;
     margin-top: 20px;
-    font-family: 'Lexend Deca', sans-serif;
 
     a{
         color: rgba(82, 182, 255, 1);
