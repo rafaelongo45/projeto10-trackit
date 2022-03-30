@@ -1,16 +1,18 @@
 import axios from 'axios';
 import styled from "styled-components";
-import { useState } from 'react';
 import { ThreeDots } from  'react-loader-spinner'
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from 'react';
 
-import Logo from "../../Assets/img/logo.svg"
+import Logo from "../../Assets/img/logo.svg";
+import UserContext from '../Contexts/UserData';
 
 function LoginPage() {
     const navigate = useNavigate();
 
+    const {userData, setUserData} = useContext(UserContext);
+
     const [disabled, setDisabled] = useState(false);
-    const [userData, setUserData] = useState({ email: "", password: "" });
 
     function sendData(e) {
         e.preventDefault();
@@ -22,8 +24,8 @@ function LoginPage() {
 
         promise.then(response =>{
             const {data} = response;
-            console.log(data);
             navigate("/hoje");
+            setUserData(data);
         })
 
         promise.catch(e => {

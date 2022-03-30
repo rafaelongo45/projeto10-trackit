@@ -1,15 +1,19 @@
+import { useContext } from "react";
 import styled from "styled-components";
 
-import Donkey from "../../Assets/img/donkey.jpg"
+import UserContext from "../Contexts/UserData";
 
 function RenderHeader (){
+    const {userData} = useContext(UserContext);
+    console.log('sou do header', userData);
+
     return (
         <Header> 
             <p>
                 TrackIt
             </p>
 
-            <img src={Donkey} alt = "Hey shrek i'm donkey"/>
+            <img src={userData.image} alt = "Hey shrek i'm donkey"/>
         </Header>
     )
 
@@ -41,8 +45,8 @@ const Header = styled.header`
 
     img{
         border-radius: 50%;
-        width: 55px;
-        height: 55px;
+        width: 60px;
+        height: 60px;
         margin-right: 15px;
     }
 `
