@@ -1,14 +1,36 @@
-import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import styled from "styled-components";
-
+import { useState } from 'react';
+import { ThreeDots } from  'react-loader-spinner'
+import { Link, useNavigate } from "react-router-dom";
 
 import Logo from "../../Assets/img/logo.svg"
 
 function LoginPage() {
     const navigate = useNavigate();
 
-    function changePage() {
-        navigate("/habitos");
+    const [disabled, setDisabled] = useState(false);
+    const [userData, setUserData] = useState({ email: "", password: "" });
+
+    function sendData(e) {
+        e.preventDefault();
+        
+        setDisabled(true);
+
+        const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
+        const promise = axios.post(URL, userData);
+
+        promise.then(response =>{
+            const {data} = response;
+            console.log(data);
+            navigate("/hoje");
+        })
+
+        promise.catch(e => {
+            console.log(e.response);
+            alert("Opa! Parece que deu xabu em!");
+            setDisabled(false);
+        })
     }
 
     return (
@@ -17,10 +39,27 @@ function LoginPage() {
                 <img src={Logo} alt="Page Logo" />
             </PageLogo>
 
-            <Form onSubmit={changePage}>
-                <input type="email" placeholder="email" ></input>
-                <input type="password" placeholder="senha" ></input>
-                <button type="submit">Entrar</button>
+            <Form onSubmit={sendData}>
+                <input 
+                type="email" 
+                placeholder="email"
+                disabled = {disabled}
+                onChange={(e)=>{setUserData({...userData, email: e.target.value})}}>  
+                </input>
+
+                <input 
+                type="password" 
+                placeholder="senha"
+                disabled = {disabled}
+                onChange={(e)=>{setUserData({...userData, password: e.target.value})}}>  
+                </input>
+                
+                {
+                    disabled ?
+                    <button type="submit"><ThreeDots color="white" height={80} width={80} /></button>
+                    :
+                    <button type="submit">Entrar</button>
+                }
             </Form>
 
             <LoginPageLink >
@@ -73,6 +112,9 @@ const Form = styled.form`
         text-align: center;
         font-size: 24px;
         font-weight: 500;
+        display:flex;
+        justify-content: center;
+        align-items: center;
     }
 
     input::placeholder{
