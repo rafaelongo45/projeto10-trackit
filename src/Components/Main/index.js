@@ -4,14 +4,16 @@ import { ThreeDots } from  'react-loader-spinner'
 import { useState, useContext } from "react";
 
 import RenderButton from "./RenderButton";
+import ClickState from "../Contexts/ClickState";
 import RenderUserHabits from "./RenderUserHabits";
 import UserContext from "../Contexts/UserData";
 import { BsFillPatchPlusFill as AddIcon } from "react-icons/bs";
 
 function RenderHabits() {
-  const [click, setClick] = useState(false);
   const {userData} = useContext(UserContext);
-  const [disableSubmit, setDisableSubmit] = useState(false);
+  const {disableSubmit, setDisableSubmit} = useContext(ClickState)
+
+  const [click, setClick] = useState(false);
   const [selectedDays, setSelectedDays] = useState(new Map());
   const [habitData, setHabitData] = useState({name: "", days: []});
 
@@ -44,8 +46,6 @@ function RenderHabits() {
       setDisableSubmit(false);
       setSelectedDays(new Map());
       setHabitData({name: "", days: []}); 
-      console.log(habitData)
-      console.log(data);
     });
 
     promise.catch(e => {
@@ -53,8 +53,6 @@ function RenderHabits() {
       alert(e.response.data.details);
       setDisableSubmit(false);
     });
-    
-
 
   }
 
@@ -166,7 +164,7 @@ const Header = styled.header`
 `;
 
 const Section = styled.section`
-  margin-bottom: 30%;
+  margin-bottom: 130px;
 
   p {
     color: rgba(102, 102, 102, 1);

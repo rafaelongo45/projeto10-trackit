@@ -1,15 +1,18 @@
-import { useState, useEffect, useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import { IoTrashBinOutline } from 'react-icons/io5';
 import  styled  from "styled-components";
 import axios from 'axios';
 
 import UserContext from "../Contexts/UserData";
-import RenderButtons from './RenderThing';
+import ClickState from '../Contexts/ClickState';
+import UserHabits from '../Contexts/UserHabits';
+import RenderButtons from './RenderHabitButtons';
 
 
 function RenderUserHabits() {
+    const {disableSubmit, setDisableSubmit} = useContext(ClickState);
     const {userData} = useContext(UserContext);
-    const [userHabits, setUserHabits] = useState([]);
+    const {userHabits, setUserHabits} = useContext(UserHabits);
 
     useEffect(() => {
         const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
@@ -27,8 +30,39 @@ function RenderUserHabits() {
             setUserHabits(data);
         })
 
-    }, [])
+    }, [disableSubmit])
+    
+    function confirmDelete(id){
+        const confirmation = window.confirm("Realmente deseja deletar o hábito?")
+        
+        if(confirmation){
+            deleteHabit(id)
+        }
+    }
 
+    function deleteHabit(habitId){
+        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habitId}`;
+
+        const config = {
+            headers: {
+              "Authorization": `Bearer ${userData.token}`
+            }
+        }  
+
+        const promise = axios.delete(URL, config);
+
+        promise.then(()=>{
+            setDisableSubmit(false);
+            console.log(promise)
+        })
+
+        promise.catch(()=>{
+            setDisableSubmit(true);
+
+        })
+    }
+
+    console.log(userHabits)
 
   return userHabits.length === 0 ? (
     <p>
@@ -40,7 +74,7 @@ function RenderUserHabits() {
            <Section key = {habit + index}>
                 <header>
                     <p>{habit.name}</p>
-                    <button> <IoTrashBinOutline /> </button>
+                    <button onClick = {()=>{confirmDelete(habit.id); setDisableSubmit(true);}}> <IoTrashBinOutline /> </button>
                 </header>
 
                 <Buttons >
@@ -52,7 +86,6 @@ function RenderUserHabits() {
     })
     
 }
-
 
 //CSS
 
@@ -73,7 +106,7 @@ const Section = styled.section`
 
         p{
             font-size: 20px;
-
+            word-break: break-word;
         }
 
         button{

@@ -2,8 +2,7 @@ import {useState} from 'react'
 import styled from 'styled-components'
 
 function RenderButtons({days}){
-    const [bgColor, setBgColor] = useState("white");
-    const [color, setColor] = useState("rgba(212, 212, 212, 1)");
+    let changeColor = false;
 
     const weekDays = [
         { id: 1, day: "D" },
@@ -15,18 +14,15 @@ function RenderButtons({days}){
         { id: 7, day: "S" },
     ];
 
-    let idArrays = [];
-
-    for(let i = 0; i < weekDays.length; i++){
-        idArrays.push(weekDays[i].id);
-    }
-
-    console.log(days);
-
     return (
         weekDays.map((day, index)=>{
+            for(let i = 0; i < days.length; i++){
+                if(days[i] === day.id){
+                    changeColor = true;
+                }
+            }
             return(
-                <Button key = {day + index} color = {color} bgColor = {bgColor}> {day.day} </Button>
+                <Button key = {day + index} changeColor ={changeColor}> {day.day} </Button>
             )
         })  
     )
@@ -45,8 +41,8 @@ const Button = styled.button`
     border: 2px solid rgba(212, 212, 212, 1);
     font-weight: 700;
     margin-right: 5px;
-    color: ${props => props.color};
-    background-color: ${props => props.bgColor};
+    color: ${props => props.changeColor ? "white" : "rgba(212, 212, 212, 1)" };
+    background-color: ${props => props.changeColor ? "rgba(212, 212, 212, 1)" : "white" };
 
 
 `
