@@ -4,6 +4,7 @@ import { ThreeDots } from  'react-loader-spinner'
 import { useState, useContext } from "react";
 
 import RenderButton from "./RenderButton";
+import RenderUserHabits from "./RenderUserHabits";
 import UserContext from "../Contexts/UserData";
 import { BsFillPatchPlusFill as AddIcon } from "react-icons/bs";
 
@@ -57,9 +58,9 @@ function RenderHabits() {
 
   }
 
-  function addHabit(cssClass) {
+  function addHabit() {
     return (
-      <AddHabitBox className = { cssClass }>
+      <AddHabitBox>
         <Form onSubmit= { sendData } >
           <input 
           type = "text"
@@ -70,9 +71,10 @@ function RenderHabits() {
           </input>
 
           <div>
-            {daysArr.map((day) => {
+            {daysArr.map((day, index) => {
               return (
                 <RenderButton
+                  key = {index + day}
                   dayData={day}
                   selectedDays={selectedDays}
                   setSelectedDays={setSelectedDays}
@@ -85,7 +87,7 @@ function RenderHabits() {
           </div>
 
           <InputSubmit>
-            <CancelButton type = "button" disabled = {disableSubmit} onClick={() => setClick(false)}>
+            <CancelButton disabled = {disableSubmit} onClick={() => setClick(false)}>
               Cancelar
             </CancelButton>
             <SubmitButton type="submit" disabled = {disableSubmit}>
@@ -114,13 +116,10 @@ function RenderHabits() {
           </em>
         </Header>
 
-        {click ? addHabit("") : addHabit("hidden")}
+        {click ? addHabit() : ""}
 
         <Section>
-          <p>
-            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-            começar a trackear!
-          </p>
+          <RenderUserHabits />
         </Section>
       </article>
     </Main>
@@ -146,10 +145,6 @@ const Main = styled.main`
   article {
     width: 93vw;
   }
-
-  .hidden{
-    display:none!important;
-  }
 `;
 
 const Header = styled.header`
@@ -171,6 +166,8 @@ const Header = styled.header`
 `;
 
 const Section = styled.section`
+  margin-bottom: 30%;
+
   p {
     color: rgba(102, 102, 102, 1);
     font-size: 18px;

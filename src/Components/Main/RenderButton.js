@@ -29,9 +29,11 @@ function RenderButton({ dayData, setSelectedDays, selectedDays, habitData, setHa
       setSelectedDays(new Map(selectedDays));
      
     }else{
-      selectedDays.delete(id);
+      selectedDays.set(id);
       setSelectedDays(new Map(selectedDays.set(id, WeekDay)));
     }
+
+    console.log(selectedDays)
 
     const keys = [...selectedDays.keys()];
 
@@ -55,7 +57,7 @@ const WeekDay = styled.button`
     width: 35px;
     font-size: 18px;
     border-radius: 5px;
-    border: 1px solid rgba(212, 212, 212, 1);
+    border: 2px solid rgba(212, 212, 212, 1);
     font-weight: 700;
     margin: 0 2px;
     color: ${props => props.color};
