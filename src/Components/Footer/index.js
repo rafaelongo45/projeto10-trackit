@@ -1,9 +1,15 @@
 import styled from "styled-components";
+import { useContext } from 'react'
 import { Link } from "react-router-dom";
-import "react-circular-progressbar/dist/styles.css";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 
+import CheckState from "../Contexts/CheckState";
+import "react-circular-progressbar/dist/styles.css";
+
 function RenderFooter() {
+  const { check } = useContext(CheckState);
+  console.log(check)
+
   return (
     <Footer>
       <Link to="/habitos">Hábitos</Link>
@@ -11,7 +17,8 @@ function RenderFooter() {
       <Link to="/hoje">
         <Div>
           <CircularProgressbar
-            value={80}
+            value={check.clicks}
+            maxValue = {check.size}
             text={"Hoje"}
             background
             backgroundPadding={7}

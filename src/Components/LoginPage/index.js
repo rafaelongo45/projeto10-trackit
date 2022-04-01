@@ -24,8 +24,8 @@ function LoginPage() {
 
         promise.then(response =>{
             const {data} = response;
-            navigate("/hoje");
             setUserData(data);
+            navigate("/hoje");
         })
 
         promise.catch(e => {
