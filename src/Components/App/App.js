@@ -5,11 +5,11 @@ import UserContext from "../Contexts/UserData";
 import ClickState from "../Contexts/ClickState";
 import CheckState from "../Contexts/CheckState";
 import UserHabits from "../Contexts/UserHabits";
-import LoginPage from "../LoginPage";
-import HabitsPage from "../HabitsPage";
-import UserHistory from "../UserHistoryPage";
+import LoginPage from "../Main/LoginPage";
+import HabitsPage from "../Main/HabitsPage";
+import UserHistory from "..//Main/UserHistoryPage";
 import TodayPage from "../Main/TodayPage";
-import CreateAccountPage from "../CreateAccountPage";
+import CreateAccountPage from "../Main/CreateAccountPage";
 
 function App() {
   const [disableSubmit, setDisableSubmit] = useState(false);

@@ -1,15 +1,15 @@
 import Footer from "../../Footer";
 import Header from "../../Header";
-import RenderTodayPage from "./RenderTodayPage"
+import RenderHabitsPage from "./RenderHabitsPage";
 
-function TodayPage() {
+function HabitsPage() {
   return (
     <>
       <Header />
-      <RenderTodayPage />
+      <RenderHabitsPage />
       <Footer />
     </>
   );
 }
 
-export default TodayPage;
+export default HabitsPage;

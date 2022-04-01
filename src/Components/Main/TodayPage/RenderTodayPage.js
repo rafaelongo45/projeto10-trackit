@@ -7,13 +7,16 @@ import CheckState from "../../Contexts/CheckState";
 import RenderHabit from "./RenderHabit";
 import UserContext from "../../Contexts/UserData";
 
+require('dayjs/locale/pt-br');
+dayjs.locale('pt-br');
+
 function RenderTodayPage() {
   const { userData } = useContext(UserContext);
+  const { check, setCheck } = useContext(CheckState);
   const [habitsToday, setHabitsToday] = useState([]);
-  const { check, setCheck } = useContext(CheckState)
 
-  const day = dayjs().format('dddd, DD/MM')
-  
+  const day = dayjs().format('ddd, DD/MM');
+  const dayStr = day[0].toUpperCase() + day.slice(1);
 
   useEffect(() => {
     const URL =
@@ -37,9 +40,9 @@ function RenderTodayPage() {
     <Main>
       <article>
         <Header>
-          <p>{day}</p>
+          <p>{dayStr}</p>
           {
-            check.clicks < 1 ? <span>Nenhum hábito concluído ainda</span> : <em>{check.clicks/check.size * 100}% dos hábitos concluídos</em> 
+            check.clicks < 1 ? <span>Nenhum hábito concluído ainda</span> : <em>{Math.ceil(check.clicks/check.size * 100)}% dos hábitos concluídos</em> 
           }
         </Header>
 
@@ -50,11 +53,6 @@ function RenderTodayPage() {
 }
 
 export default RenderTodayPage;
-
-
-
-
-
 
 
 //CSS
@@ -89,6 +87,7 @@ const Header = styled.header`
     width: 100%;
     color: rgba(18, 107, 165, 1);
     font-size: 28px;
+    margin-bottom: 10px;
   }
 
   span {

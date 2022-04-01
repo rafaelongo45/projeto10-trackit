@@ -45,7 +45,7 @@ const Header = styled.header`
     width: 100%;
     color: rgba(18, 107, 165, 1);
     font-size: 28px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
   }
 
   p {

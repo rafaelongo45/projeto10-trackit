@@ -1,9 +1,7 @@
-import {useState} from 'react'
 import styled from 'styled-components'
 
 function RenderButtons({days}){
     let changeColor = false;
-
     const weekDays = [
         { id: 1, day: "D" },
         { id: 2, day: "S" },
@@ -16,13 +14,19 @@ function RenderButtons({days}){
 
     return (
         weekDays.map((day, index)=>{
+            changeColor = false;
+
             for(let i = 0; i < days.length; i++){
                 if(days[i] === day.id){
                     changeColor = true;
                 }
             }
+
+            console.log(days)
+            console.log(day)
             return(
                 <Button key = {day + index} changeColor ={changeColor}> {day.day} </Button>
+                
             )
         })  
     )

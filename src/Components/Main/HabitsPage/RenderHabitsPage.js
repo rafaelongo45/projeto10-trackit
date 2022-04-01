@@ -1,21 +1,22 @@
 import axios from "axios";
 import styled from "styled-components";
-import { ThreeDots } from  'react-loader-spinner'
 import { useState, useContext } from "react";
+import { ThreeDots } from "react-loader-spinner";
 
 import RenderButton from "./RenderButton";
-import ClickState from "../Contexts/ClickState";
 import RenderUserHabits from "./RenderUserHabits";
-import UserContext from "../Contexts/UserData";
+import UserContext from "../../Contexts/UserData";
+import ClickState from "../../Contexts/ClickState";
+
 import { BsFillPatchPlusFill as AddIcon } from "react-icons/bs";
 
-function RenderHabits() {
-  const {userData} = useContext(UserContext);
-  const {disableSubmit, setDisableSubmit} = useContext(ClickState)
+function RenderHabitsPage() {
+  const { userData } = useContext(UserContext);
+  const { disableSubmit, setDisableSubmit } = useContext(ClickState);
 
   const [click, setClick] = useState(false);
   const [selectedDays, setSelectedDays] = useState(new Map());
-  const [habitData, setHabitData] = useState({name: "", days: []});
+  const [habitData, setHabitData] = useState({ name: "", days: [] });
 
   const daysArr = [
     { id: 1, day: "D" },
@@ -27,76 +28,87 @@ function RenderHabits() {
     { id: 7, day: "S" },
   ];
 
-  function sendData (e){
+  function sendData(e) {
     e.preventDefault();
-    setDisableSubmit(true);
 
-    const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
-    const config = {
-      headers: {
-        "Authorization": `Bearer ${userData.token}`
-      }
+    if (habitData.days.length < 1) {
+      alert("Escolha pelo menos um dia para o hábito");
+      return;
     }
 
+    setDisableSubmit(true);
+
+    const URL =
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits";
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+
     const promise = axios.post(URL, habitData, config);
-    
+
     promise.then((response) => {
-      const {data} = response;
       setClick(false);
       setDisableSubmit(false);
       setSelectedDays(new Map());
-      setHabitData({name: "", days: []}); 
+      setHabitData({ name: "", days: [] });
     });
 
-    promise.catch(e => {
+    promise.catch((e) => {
       console.log(e.response);
       alert(e.response.data.details);
       setDisableSubmit(false);
     });
-
   }
 
   function addHabit() {
     return (
       <AddHabitBox>
-        <Form onSubmit= { sendData } >
-          <input 
-          type = "text"
-          value = {habitData.name}
-          placeholder="nome do hábito"
-          onChange={(e) => setHabitData({...habitData, name: e.target.value })}
-          disabled = {disableSubmit}>
-          </input>
+        <Form onSubmit={sendData}>
+          <input
+            type="text"
+            value={habitData.name}
+            placeholder="nome do hábito"
+            onChange={(e) =>
+              setHabitData({ ...habitData, name: e.target.value })
+            }
+            disabled={disableSubmit}
+          ></input>
 
           <div>
             {daysArr.map((day, index) => {
               return (
                 <RenderButton
-                  key = {index + day}
+                  key={index + day}
                   dayData={day}
                   selectedDays={selectedDays}
                   setSelectedDays={setSelectedDays}
                   habitData={habitData}
                   setHabitData={setHabitData}
-                  disableSubmit = {disableSubmit}
+                  disableSubmit={disableSubmit}
                 />
               );
             })}
           </div>
 
           <InputSubmit>
-            <CancelButton disabled = {disableSubmit} onClick={() => setClick(false)}>
+            <CancelButton
+              disabled={disableSubmit}
+              onClick={() => {
+                setClick(false);
+                setHabitData({ name: "", days: [] });
+                setSelectedDays(new Map());
+              }}
+            >
               Cancelar
             </CancelButton>
-            <SubmitButton type="submit" disabled = {disableSubmit}>
-              
-              {
-                disableSubmit ? 
+            <SubmitButton type="submit" disabled={disableSubmit}>
+              {disableSubmit ? (
                 <ThreeDots color="white" height={15} width={88} />
-                :
+              ) : (
                 "Salvar"
-              }
-
+              )}
             </SubmitButton>
           </InputSubmit>
         </Form>
@@ -116,15 +128,13 @@ function RenderHabits() {
 
         {click ? addHabit() : ""}
 
-        <Section>
-          <RenderUserHabits />
-        </Section>
+        <Section>{<RenderUserHabits />}</Section>
       </article>
     </Main>
   );
 }
 
-export default RenderHabits;
+export default RenderHabitsPage;
 
 //CSS
 const Main = styled.main`
@@ -153,7 +163,7 @@ const Header = styled.header`
   align-items: center;
 
   span {
-    font-size: 25px;
+    font-size: 28px;
     color: rgba(18, 107, 165, 1);
   }
 

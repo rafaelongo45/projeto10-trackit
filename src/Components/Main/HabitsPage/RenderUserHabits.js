@@ -3,9 +3,9 @@ import { IoTrashBinOutline } from 'react-icons/io5';
 import  styled  from "styled-components";
 import axios from 'axios';
 
-import UserContext from "../Contexts/UserData";
-import ClickState from '../Contexts/ClickState';
-import UserHabits from '../Contexts/UserHabits';
+import UserContext from "../../Contexts/UserData";
+import ClickState from '../../Contexts/ClickState';
+import UserHabits from '../../Contexts/UserHabits';
 import RenderButtons from './RenderHabitButtons';
 
 

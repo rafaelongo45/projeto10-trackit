@@ -6,7 +6,6 @@ function RenderButton({ dayData, setSelectedDays, selectedDays, habitData, setHa
   const [bgColor, setBgColor] = useState("white");
   const [color, setColor] = useState("rgba(212, 212, 212, 1)");
   
-
   function selectDay(e){
     e.preventDefault();
     

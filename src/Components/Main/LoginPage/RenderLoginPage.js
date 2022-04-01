@@ -4,10 +4,10 @@ import { ThreeDots } from  'react-loader-spinner'
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from 'react';
 
-import Logo from "../../Assets/img/logo.svg";
-import UserContext from '../Contexts/UserData';
+import Logo from "../../../Assets/img/logo.svg";
+import UserContext from '../../Contexts/UserData';
 
-function LoginPage() {
+function RenderLoginPage() {
     const navigate = useNavigate();
 
     const {userData, setUserData} = useContext(UserContext);
@@ -73,7 +73,7 @@ function LoginPage() {
     )
 }
 
-export default LoginPage;
+export default RenderLoginPage;
 
 
 //CSS
