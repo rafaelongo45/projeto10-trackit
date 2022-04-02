@@ -16,9 +16,10 @@ function RenderTodayPage() {
 
   const [habitsToday, setHabitsToday] = useState([]);
   const [disable, setDisable] = useState(false);
-
+  
   const day = dayjs().format('dddd, DD/MM');
-  const dayStr = day[0].toUpperCase() + day.slice(1);
+  let dayStr = day[0].toUpperCase() + day.slice(1);
+  dayStr = dayStr.replace('-feira', '')
 
   useEffect(() => {
     const URL =
