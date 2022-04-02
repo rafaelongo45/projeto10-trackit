@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import styled from "styled-components";
 
 import RenderCheckButton from "./RenderCheckButton";
 
-function RenderHabit({ habits }) {
+function RenderHabit({ habits, setDisable, disable }) {
   let num = 0;
+
   console.log(habits);
 
   return (
@@ -11,7 +13,7 @@ function RenderHabit({ habits }) {
       {habits.map((habit, index) => {
         const newHabit = habit;
 
-        if (habit.done) {
+        if (habit.done ) {
           num++;
         }
 
@@ -39,7 +41,7 @@ function RenderHabit({ habits }) {
                 </p>
               </HabitData>
 
-              <RenderCheckButton habit={newHabit} num={num} />
+              <RenderCheckButton habit={newHabit} num={num} disable = {disable} setDisable = {setDisable}/>
             </Div>
           </Section>
         );

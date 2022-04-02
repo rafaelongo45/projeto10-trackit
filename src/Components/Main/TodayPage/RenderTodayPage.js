@@ -13,9 +13,11 @@ dayjs.locale('pt-br');
 function RenderTodayPage() {
   const { userData } = useContext(UserContext);
   const { check, setCheck } = useContext(CheckState);
-  const [habitsToday, setHabitsToday] = useState([]);
 
-  const day = dayjs().format('ddd, DD/MM');
+  const [habitsToday, setHabitsToday] = useState([]);
+  const [disable, setDisable] = useState(false);
+
+  const day = dayjs().format('dddd, DD/MM');
   const dayStr = day[0].toUpperCase() + day.slice(1);
 
   useEffect(() => {
@@ -28,11 +30,14 @@ function RenderTodayPage() {
       },
     };
 
+    setDisable(true);
+
     const promise = axios.get(URL, config);
 
     promise.then((response) => {
       setHabitsToday(response.data);
       setCheck({...check, size: habitsToday.length })
+      setDisable(false);
     });
   }, [check.clicks]);
 
@@ -46,7 +51,7 @@ function RenderTodayPage() {
           }
         </Header>
 
-        <RenderHabit habits={habitsToday} />
+        <RenderHabit habits={habitsToday} disable = {disable} setDisable = {setDisable}/>
       </article>
     </Main>
   );

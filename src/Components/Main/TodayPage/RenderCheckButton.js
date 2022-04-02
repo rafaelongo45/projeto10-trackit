@@ -7,7 +7,7 @@ import UserContext from "../../Contexts/UserData";
 import CheckState from "../../Contexts/CheckState";
 
 
-function RenderCheckButton({ habit, num }) {
+function RenderCheckButton({ habit, num, setDisable, disable }) {
   const { userData } = useContext(UserContext);
   const { check, setCheck } = useContext(CheckState);
 
@@ -37,6 +37,7 @@ function RenderCheckButton({ habit, num }) {
 
         promise.then((response) => {
           setCheck({ ...check, clicks: check.clicks + 1 });
+          setDisable(false)
         })
       }else{
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`
@@ -52,7 +53,7 @@ function RenderCheckButton({ habit, num }) {
 
         promise.then((response) => {
           setCheck({ ...check, clicks: check.clicks - 1 });
-
+          setDisable(false);
       })
     } 
   }
@@ -60,8 +61,10 @@ function RenderCheckButton({ habit, num }) {
   return (
     <ButtonContainer
       onClick={() => {
+        setDisable(true);
         checkUnchekHabit();
       }}
+      disabled = {disable}
       done={habit.done}
     >
       <CheckButton />
@@ -73,10 +76,13 @@ export default RenderCheckButton;
 
 //CSS
 
-const ButtonContainer = styled.em`
+const ButtonContainer = styled.button`
   position: absolute;
   top: 3px;
   right: 0;
   font-size: 85px;
+  height: 85px;
+  background: none;
+  border: none;
   color: ${(props) => props.done ? "rgba(143, 197, 73, 1)" : "rgba(231, 231, 231, 1)"};
 `;

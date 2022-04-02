@@ -17,7 +17,7 @@ function RenderFooter() {
         <Div>
           <CircularProgressbar
             value={check.clicks}
-            maxValue={check.size}
+            maxValue={check.size === 0 ? 1 : check.size}
             text={"Hoje"}
             background
             backgroundPadding={7}
