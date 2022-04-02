@@ -36,9 +36,7 @@ function RenderCheckButton({ habit, num }) {
         const promise = axios.post(URL, body, config)
 
         promise.then((response) => {
-          console.log(response);
           setCheck({ ...check, clicks: check.clicks + 1 });
-          console.log(check)
         })
       }else{
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`
@@ -54,8 +52,7 @@ function RenderCheckButton({ habit, num }) {
 
         promise.then((response) => {
           setCheck({ ...check, clicks: check.clicks - 1 });
-          console.log(response);
-          console.log(check);
+
       })
     } 
   }

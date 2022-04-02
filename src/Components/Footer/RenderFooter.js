@@ -8,7 +8,6 @@ import "react-circular-progressbar/dist/styles.css";
 
 function RenderFooter() {
   const { check } = useContext(CheckState);
-  console.log(check);
 
   return (
     <Footer>
@@ -18,7 +17,7 @@ function RenderFooter() {
         <Div>
           <CircularProgressbar
             value={check.clicks}
-            maxValue={check.size === 0 ? 1 : check.size}
+            maxValue={check.size}
             text={"Hoje"}
             background
             backgroundPadding={7}

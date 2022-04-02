@@ -5,6 +5,7 @@ import UserContext from "../Contexts/UserData";
 import ClickState from "../Contexts/ClickState";
 import CheckState from "../Contexts/CheckState";
 import UserHabits from "../Contexts/UserHabits";
+import AddHabitContext from "../Contexts/AddHabitState";
 import LoginPage from "../Main/LoginPage";
 import HabitsPage from "../Main/HabitsPage";
 import UserHistory from "..//Main/UserHistoryPage";
@@ -16,6 +17,7 @@ function App() {
   const [userData, setUserData] = useState();
   const [userHabits, setUserHabits] = useState([]);
   const [check, setCheck] = useState({size: 0, clicks: 0});
+  const [previousButtons, setPreviousButtons] = useState([]);
 
   return (
     <BrowserRouter>
@@ -23,6 +25,7 @@ function App() {
         <UserHabits.Provider value={{ userHabits, setUserHabits }}>
           <ClickState.Provider value={{ disableSubmit, setDisableSubmit }}>
             <CheckState.Provider value={{ check, setCheck }}>
+             <AddHabitContext.Provider value = {{previousButtons, setPreviousButtons}}>
               <Routes>
                 <Route path="/" element={<LoginPage />} />
                 <Route path="/hoje" element={<TodayPage />} />
@@ -30,6 +33,7 @@ function App() {
                 <Route path="/historico" element={<UserHistory />} />
                 <Route path="/cadastro" element={<CreateAccountPage />} />
               </Routes>
+              </AddHabitContext.Provider>
             </CheckState.Provider>
           </ClickState.Provider>
         </UserHabits.Provider>

@@ -7,12 +7,14 @@ import RenderButton from "./RenderButton";
 import RenderUserHabits from "./RenderUserHabits";
 import UserContext from "../../Contexts/UserData";
 import ClickState from "../../Contexts/ClickState";
+import AddHabitContext from "../../Contexts/AddHabitState";
 
 import { BsFillPatchPlusFill as AddIcon } from "react-icons/bs";
 
 function RenderHabitsPage() {
   const { userData } = useContext(UserContext);
   const { disableSubmit, setDisableSubmit } = useContext(ClickState);
+  const { previousButtons, setPreviousButtons } = useContext(AddHabitContext);
 
   const [click, setClick] = useState(false);
   const [selectedDays, setSelectedDays] = useState(new Map());
@@ -53,10 +55,10 @@ function RenderHabitsPage() {
       setDisableSubmit(false);
       setSelectedDays(new Map());
       setHabitData({ name: "", days: [] });
+      setPreviousButtons([]);
     });
 
     promise.catch((e) => {
-      console.log(e.response);
       alert(e.response.data.details);
       setDisableSubmit(false);
     });
@@ -94,12 +96,15 @@ function RenderHabitsPage() {
 
           <InputSubmit>
             <CancelButton
-              disabled={disableSubmit}
+              type="button"
               onClick={() => {
                 setClick(false);
-                setHabitData({ name: "", days: [] });
-                setSelectedDays(new Map());
+                console.log(habitData);
+                setHabitData({ ...habitData, days: previousButtons });
+                console.log(previousButtons)
+                console.log(selectedDays)
               }}
+              disabled={disableSubmit}
             >
               Cancelar
             </CancelButton>

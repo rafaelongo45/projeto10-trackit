@@ -8,7 +8,6 @@ import ClickState from '../../Contexts/ClickState';
 import UserHabits from '../../Contexts/UserHabits';
 import RenderButtons from './RenderHabitButtons';
 
-
 function RenderUserHabits() {
     const {disableSubmit, setDisableSubmit} = useContext(ClickState);
     const {userData} = useContext(UserContext);
@@ -53,7 +52,6 @@ function RenderUserHabits() {
 
         promise.then(()=>{
             setDisableSubmit(false);
-            console.log(promise)
         })
 
         promise.catch(()=>{
@@ -61,8 +59,6 @@ function RenderUserHabits() {
 
         })
     }
-
-    console.log(userHabits)
 
   return userHabits.length === 0 ? (
     <p>
