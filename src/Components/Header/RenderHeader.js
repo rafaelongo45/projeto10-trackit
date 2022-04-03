@@ -5,7 +5,7 @@ import UserContext from "../Contexts/UserData";
 
 function RenderHeader() {
   const { userData } = useContext(UserContext);
-  console.log("sou do header", userData);
+  const strData = localStorage.setItem("userData", JSON.stringify(userData));
 
   return (
     <Header>

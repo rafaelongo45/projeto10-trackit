@@ -9,10 +9,17 @@ import UserContext from '../../Contexts/UserData';
 
 function RenderLoginPage() {
     const navigate = useNavigate();
-
     const {userData, setUserData} = useContext(UserContext);
-
     const [disabled, setDisabled] = useState(false);
+
+    const data = localStorage.getItem("userData");
+
+    if( data!== null){
+        const dataDeserialized = JSON.parse(data)
+        setUserData(dataDeserialized);
+        navigate("/hoje");
+    }
+
 
     function sendData(e) {
         e.preventDefault();
