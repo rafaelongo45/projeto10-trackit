@@ -49,8 +49,6 @@ function RenderButton({
     }
     const keys = [...selectedDays.keys()];
 
-    console.log(keys)
-
     setHabitData({ ...habitData, days: keys });
   }
 

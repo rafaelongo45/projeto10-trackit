@@ -2,7 +2,7 @@ import axios from 'axios';
 import styled from "styled-components";
 import { ThreeDots } from  'react-loader-spinner'
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import Logo from "../../../Assets/img/logo.svg";
 import UserContext from '../../Contexts/UserData';
@@ -14,11 +14,13 @@ function RenderLoginPage() {
 
     const data = localStorage.getItem("userData");
 
-    if( data!== null){
-        const dataDeserialized = JSON.parse(data)
-        setUserData(dataDeserialized);
-        navigate("/hoje");
-    }
+    useEffect(()=>{
+        if( data!== null){
+            const dataDeserialized = JSON.parse(data)
+            setUserData(dataDeserialized);
+            navigate("/hoje");
+        }
+    }, [])
 
 
     function sendData(e) {

@@ -100,10 +100,7 @@ function RenderHabitsPage() {
               type="button"
               onClick={() => {
                 setClick(false);
-                console.log(habitData);
                 setHabitData({ ...habitData, days: previousButtons });
-                console.log(previousButtons)
-                console.log(selectedDays)
               }}
               disabled={disableSubmit}
             >

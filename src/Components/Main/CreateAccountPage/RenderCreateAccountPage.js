@@ -29,12 +29,10 @@ function RenderCreateAccountPage() {
 
     promise.then((response) => {
       const { data } = response;
-      console.log(data);
       navigate("/");
     });
 
     promise.catch((error) => {
-      console.log(error.response);
       alert(error.response.data.message);
       setDisabled(false);
     });

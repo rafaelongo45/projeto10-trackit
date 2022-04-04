@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import styled from "styled-components";
 
 import RenderCheckButton from "./RenderCheckButton";
@@ -6,14 +6,12 @@ import RenderCheckButton from "./RenderCheckButton";
 function RenderHabit({ habits, setDisable, disable }) {
   let num = 0;
 
-  console.log(habits);
-
   return (
     <>
       {habits.map((habit, index) => {
         const newHabit = habit;
 
-        if (habit.done ) {
+        if (habit.done) {
           num++;
         }
 
@@ -23,14 +21,15 @@ function RenderHabit({ habits, setDisable, disable }) {
               <HabitData
                 current={habit.currentSequence}
                 highest={habit.highestSequence}
+                done={habit.done}
               >
                 <h1> {habit.name}</h1>
                 <p>
                   Sequência atual:{" "}
-                  <span>
+                  <em>
                     {habit.currentSequence}{" "}
                     {habit.currentSequence === 1 ? "dia" : "dias"}
-                  </span>
+                  </em>
                 </p>
                 <p>
                   Seu recorde:{" "}
@@ -41,7 +40,12 @@ function RenderHabit({ habits, setDisable, disable }) {
                 </p>
               </HabitData>
 
-              <RenderCheckButton habit={newHabit} num={num} disable = {disable} setDisable = {setDisable}/>
+              <RenderCheckButton
+                habit={newHabit}
+                num={num}
+                disable={disable}
+                setDisable={setDisable}
+              />
             </Div>
           </Section>
         );
@@ -70,8 +74,6 @@ const Div = styled.div`
   position: relative;
 `;
 
-//rgba(143, 197, 73, 1) -  cor botao V
-
 const HabitData = styled.section`
   width: 75%;
   height: 100%;
@@ -89,9 +91,13 @@ const HabitData = styled.section`
 
     span {
       color: ${(props) =>
-        props.highest === props.current && props.current !== 0
+        props.done === true && props.highest === props.current && props.current !== 0
           ? "rgba(143, 197, 73, 1)"
           : "rgba(102, 102, 102, 1)"};
     }
-  }
+
+    em{
+      color: ${(props) =>
+        props.done ? "rgba(143, 197, 73, 1)" : "rgba(102, 102, 102, 1)"}};
+    }
 `;
