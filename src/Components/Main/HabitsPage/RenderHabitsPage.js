@@ -21,13 +21,13 @@ function RenderHabitsPage() {
   const [habitData, setHabitData] = useState({ name: "", days: [] });
 
   const daysArr = [
-    { id: 1, day: "D" },
-    { id: 2, day: "S" },
-    { id: 3, day: "T" },
+    { id: 7, day: "D" },
+    { id: 1, day: "S" },
+    { id: 2, day: "T" },
+    { id: 3, day: "Q" },
     { id: 4, day: "Q" },
-    { id: 5, day: "Q" },
+    { id: 5, day: "S" },
     { id: 6, day: "S" },
-    { id: 7, day: "S" },
   ];
 
   function sendData(e) {
