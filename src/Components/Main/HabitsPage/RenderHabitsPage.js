@@ -75,7 +75,7 @@ function RenderHabitsPage() {
             onChange={(e) =>
               setHabitData({ ...habitData, name: e.target.value })
             }
-            maxLength = "30"
+            maxLength = "50"
             disabled={disableSubmit}
           ></input>
 
